@@ -20,7 +20,7 @@ const Home = () => {
         </div>
 
         {/* Image Column */}
-        <div className="w-full bg-pink-800 lg:w-1/2 h-64 sm:h-72 md:h-80 lg:h-auto">
+        <div className="w-full bg-pink-200 lg:w-1/2 h-64 sm:h-72 md:h-80 lg:h-auto">
           <img
             src="/file.png"
             alt="Fashion Model"

@@ -10,9 +10,9 @@ const Home = () => {
             <p className="text-base sm:text-[18px] md:text-xl uppercase text-gray-500">
               Our Bestsellers
             </p>
-            <p className="text-4xl sm:text-[50px] md:text-[60px] font-prata text-gray-700 whitespace-nowrap">
+            <h3 className="text-4xl sm:text-[50px] md:text-[60px] font-prata text-gray-900 whitespace-nowrap">
               Latest Arrivals
-            </p>
+            </h3>
             <p className="text-base sm:text-[18px] font-medium uppercase text-gray-600 mt-4 lg:mt-0">
               Shop Now
             </p>

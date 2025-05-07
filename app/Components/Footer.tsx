@@ -18,7 +18,7 @@ const Footer = () => {
       </div>
       <div className="flex-1 flex items-start md:justify-end gap-20">
         <div>
-          <h2 className="font-semibold mb-5 text-gray-800">Company</h2>
+          <p className="font-semibold mb-5 text-gray-800">Company</p>
           <ul className="text-sm space-y-2">
          
             <li><a href="/home">Home</a></li>
@@ -28,7 +28,7 @@ const Footer = () => {
           </ul>
         </div>
         <div>
-          <h2 className="font-semibold mb-5 text-gray-800">Get in touch</h2>
+          <p className="font-semibold mb-5 text-gray-800">Get in touch</p>
           <div className="text-sm space-y-2">
             <p>+254718600199</p>
             <p>wallaceralak@gmail.com</p>

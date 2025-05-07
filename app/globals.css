@@ -15,3 +15,24 @@
     font-family: "Prata", serif;
   }
 }
+
+
+/* For modern browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 18px;
+}
+
+::-webkit-scrollbar-track {
+  background: black; /* pink-100 */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #db2777; /* pink-600 */
+  border-radius: 4px;
+}
+
+/* Firefox support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #db2777 #fce7f3;
+}

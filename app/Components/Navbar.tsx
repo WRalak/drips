@@ -249,9 +249,9 @@ export default function Navbar() {
               </Link>
             )}
             
-            <button className="text-gray-700 hover:text-gray-900">
+            <Link className="text-gray-700 hover:text-gray-900" href={"/cart"}>
               <FiShoppingCart size={18} />
-            </button>
+            </Link>
             
             <button
               className="text-gray-700 hover:text-gray-900 focus:outline-none"

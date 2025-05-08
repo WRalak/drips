@@ -75,9 +75,9 @@ export default function Navbar() {
             <button className="text-gray-700 hover:text-gray-900">
               <FiSearch size={18} />
             </button>
-            <button className="text-gray-700 hover:text-gray-900">
+            <Link className="text-gray-700 cursor-pointer hover:text-gray-900" href={"/login"}>
               <FiUser size={18} />
-            </button>
+            </Link>
             <button className="text-gray-700 hover:text-gray-900">
               <FiShoppingCart size={18} />
             </button>
@@ -88,9 +88,9 @@ export default function Navbar() {
             <button className="text-gray-700 hover:text-gray-900">
               <FiSearch size={18} />
             </button>
-            <button className="text-gray-700 hover:text-gray-900">
+            <Link className="text-gray-700 cursor-pointer hover:text-gray-900" href={"/login"}>
               <FiUser size={18} />
-            </button>
+            </Link>
             <button className="text-gray-700 hover:text-gray-900">
               <FiShoppingCart size={18} />
             </button>

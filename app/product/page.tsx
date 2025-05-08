@@ -1,6 +1,5 @@
 'use client'
 
-// components/ProductFilterPage.tsx
 import { useState, useEffect } from 'react';
 import { FiFilter } from 'react-icons/fi';
 import { FiArrowUp, FiArrowDown } from 'react-icons/fi';

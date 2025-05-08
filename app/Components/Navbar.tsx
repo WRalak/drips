@@ -1,6 +1,4 @@
-
 'use client'
-
 
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
@@ -11,7 +9,18 @@ export default function Navbar() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const pathname = usePathname();
+
+  // Check if user is logged in (you'll need to implement proper auth)
+  useEffect(() => {
+    // This is a placeholder - replace with your actual auth check
+    const token = localStorage.getItem('authToken');
+    setIsLoggedIn(!!token);
+  }, []);
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -27,9 +36,26 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleLogout = () => {
+    // Implement your logout logic here
+    localStorage.removeItem('authToken');
+    setIsLoggedIn(false);
+    setShowUserDropdown(false);
+    router.push('/login');
+  };
+
+  const handleSearch = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setShowSearch(false);
+      setSearchQuery("");
+    }
+  };
+
   const navLinks = [
     { name: "HOME", path: "/" },
-    { name: "COLLECTION", path: "/Collection" },
+    { name: "COLLECTION", path: "/product" },
     { name: "ABOUT", path: "/about" },
     { name: "CONTACT", path: "/contact" },
   ];
@@ -70,30 +96,163 @@ export default function Navbar() {
 
         {/* Icons - Different layouts for mobile and desktop */}
         <div className="flex items-center space-x-4">
+          {/* Search input (desktop) */}
+          {showSearch && (
+            <form onSubmit={handleSearch} className="hidden lg:flex items-center">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search..."
+                className="border border-gray-300 rounded-l px-3 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-pink-500"
+                autoFocus
+              />
+              <button
+                type="submit"
+                className="bg-pink-600 text-white px-3 py-1 rounded-r hover:bg-pink-700"
+              >
+                <FiSearch size={18} />
+              </button>
+            </form>
+          )}
+
           {/* Desktop Icons - Right aligned */}
           <div className="hidden lg:flex items-center space-x-4">
-            <button className="text-gray-700 hover:text-gray-900">
-              <FiSearch size={18} />
-            </button>
-            <Link className="text-gray-700 cursor-pointer hover:text-gray-900" href={"/login"}>
-              <FiUser size={18} />
-            </Link>
-            <button className="text-gray-700 hover:text-gray-900">
+            {!showSearch && (
+              <button 
+                onClick={() => setShowSearch(true)}
+                className="text-gray-700 hover:text-gray-900"
+              >
+                <FiSearch size={18} />
+              </button>
+            )}
+            
+            <div className="relative">
+              {isLoggedIn ? (
+                <>
+                  <button 
+                    onClick={() => setShowUserDropdown(!showUserDropdown)}
+                    className="text-gray-700 hover:text-gray-900 flex items-center"
+                  >
+                    <FiUser size={18} />
+                  </button>
+                  {showUserDropdown && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                      <Link
+                        href="/profile"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        onClick={() => setShowUserDropdown(false)}
+                      >
+                        Profile
+                      </Link>
+                      <Link
+                        href="/Orders"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        onClick={() => setShowUserDropdown(false)}
+                      >
+                        Orders
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <Link 
+                  href="/login" 
+                  className="text-gray-700 hover:text-gray-900"
+                >
+                  <FiUser size={18} />
+                </Link>
+              )}
+            </div>
+            
+            <Link className="text-gray-700 hover:text-gray-900" href={"/cart"}>
               <FiShoppingCart size={18} />
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Icons - All three icons plus menu toggle */}
           <div className="lg:hidden flex items-center space-x-4">
-            <button className="text-gray-700 hover:text-gray-900">
-              <FiSearch size={18} />
-            </button>
-            <Link className="text-gray-700 cursor-pointer hover:text-gray-900" href={"/login"}>
-              <FiUser size={18} />
-            </Link>
+            {/* Search input (mobile) */}
+            {showSearch && (
+              <form onSubmit={handleSearch} className="flex items-center">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search..."
+                  className="border border-gray-300 rounded-l px-3 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-pink-500"
+                  autoFocus
+                />
+                <button
+                  type="submit"
+                  className="bg-pink-600 text-white px-3 py-1 rounded-r hover:bg-pink-700"
+                >
+                  <FiSearch size={18} />
+                </button>
+              </form>
+            )}
+            
+            {!showSearch && (
+              <button 
+                onClick={() => setShowSearch(true)}
+                className="text-gray-700 hover:text-gray-900"
+              >
+                <FiSearch size={18} />
+              </button>
+            )}
+            
+            {isLoggedIn ? (
+              <div className="relative">
+                <button 
+                  onClick={() => setShowUserDropdown(!showUserDropdown)}
+                  className="text-gray-700 hover:text-gray-900"
+                >
+                  <FiUser size={18} />
+                </button>
+                {showUserDropdown && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                    <Link
+                      href="/profile"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setShowUserDropdown(false)}
+                    >
+                      Profile
+                    </Link>
+                    <Link
+                      href="/orders"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setShowUserDropdown(false)}
+                    >
+                      Orders
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link 
+                href="/login" 
+                className="text-gray-700 hover:text-gray-900"
+              >
+                <FiUser size={18} />
+              </Link>
+            )}
+            
             <button className="text-gray-700 hover:text-gray-900">
               <FiShoppingCart size={18} />
             </button>
+            
             <button
               className="text-gray-700 hover:text-gray-900 focus:outline-none"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -142,6 +301,29 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
+              {/* Add profile links if logged in */}
+              {isLoggedIn && (
+                <>
+                  <Link
+                    href="/profile"
+                    className="px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900"
+                  >
+                    Profile
+                  </Link>
+                  <Link
+                    href="/orders"
+                    className="px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900"
+                  >
+                    Orders
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="px-3 py-2 text-sm font-medium text-left text-gray-500 hover:text-gray-900"
+                  >
+                    Logout
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}

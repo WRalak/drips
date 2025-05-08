@@ -74,7 +74,8 @@ export default function Login() {
           
           <div className="flex flex-col items-center justify-between space-y-4">
             <button
-              className="bg-black  text-white  py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+              
+              className="bg-black cursor-pointer  text-white  py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full"
               type="submit"
             >
               Sign in

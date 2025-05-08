@@ -82,7 +82,7 @@ export default function Login() {
             
             <div className="text-center">
               <span className="text-sm text-gray-600">Don't have an account? </span>
-              <Link href="/signup" className="text-sm ">
+              <Link href="/register" className="text-sm ">
                 Create account
               </Link>
             </div>

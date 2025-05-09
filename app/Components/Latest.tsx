@@ -11,11 +11,11 @@ export default function LatestCollections() {
   const products = [
     {
       id: 1,
-      name: "Urban Jacket",
+      name: "Cotton Top",
       description: "Women Round Neck Cotton Top",
       price: "$89.99",
       image: "/0.png",
-      slug: "urban-jacket"
+      slug: "Cotton Top"
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ export default function LatestCollections() {
     },
     {
       id: 3,
-      name: "Slim Jeans",
+      name: "Slim Jean",
       description: "Men Round Neck Pure Cotton T-shirt",
       price: "$59.99",
       image: "/2.png",

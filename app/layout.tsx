@@ -6,6 +6,7 @@ import "./globals.css";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 
+
 // Configure Outfit font with all weights (100-900)
 const outfit = Outfit({
   subsets: ["latin"],
@@ -35,9 +36,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${outfit.variable} ${prata.variable}`}>
       <body className="font-sans">
+       
         <Navbar />
         {children}
         <Footer />
+        
       </body>
     </html>
   );

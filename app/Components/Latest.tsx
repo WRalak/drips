@@ -9,14 +9,7 @@ import Link from "next/link";
 export default function LatestCollections() {
   // Sample product data
   const products = [
-    {
-      id: 1,
-      name: "Cotton Top",
-      description: "Women Round Neck Cotton Top",
-      price: "$89.99",
-      image: "/0.png",
-      slug: "Cotton Top"
-    },
+   
     {
       id: 2,
       name: "Classic Tee",
